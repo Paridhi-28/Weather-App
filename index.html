@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        #app {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        #location {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        #temperature {
+            font-size: 3em;
+            margin: 10px 0;
+        }
+
+        #description {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        #icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        #search-button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        #chart-container {
+            margin-top: 20px;
+            height: 300px;
+        }
+    </style>
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div id="location">City, Country</div>
+        <div id="temperature">23°C</div>
+        <div id="description">Partly Cloudy</div>
+        <img id="icon" src="https://example.com/weather-icon.png" alt="Weather Icon">
+        
+        <input type="text" id="search-input" placeholder="Enter City,Country">
+        <button id="search-button">Search</button>
+
+        <!-- Chart container for 5-day forecast -->
+        <div id="chart-container">
+            <canvas id="weather-chart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Function to update weather data and chart
+        function updateWeatherData(location) {
+            // This is a placeholder function for updating weather data.
+            // In a real application, you would use a weather API.
+            // Here, we are just updating the content with dummy data.
+
+            document.getElementById('location').textContent = location;
+            document.getElementById('temperature').textContent = '25°C';
+            document.getElementById('description').textContent = 'Clear Sky';
+            document.getElementById('icon').src = 'https://example.com/clear-sky-icon.png';
+
+            // Dummy data for 5-day forecast
+            const days = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5'];
+            const temperatures = [25, 28, 23, 20, 22];
+
+            // Update the chart
+            updateChart(days, temperatures);
+        }
+
+        // Function to update the chart using Chart.js
+        function updateChart(days, temperatures) {
+            const ctx = document.getElementById('weather-chart').getContext('2d');
+
+            const weatherChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: days,
+                    datasets: [{
+                        label: 'Temperature (°C)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        data: temperatures,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Event listener for the search button
+        document.getElementById('search-button').addEventListener('click', function() {
+            const locationInput = document.getElementById('search-input').value;
+            // Use the locationInput to fetch weather data from an API
+            // Update the content dynamically
+            updateWeatherData(locationInput);
+        });
+
+        // Initial update with placeholder data
+        updateWeatherData('City, Country');
+    </script>
+</body>
+</html>
